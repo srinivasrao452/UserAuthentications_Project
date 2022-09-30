@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        {%  block title %} {% endblock %}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+   <style>
+       body{
+           background-color: burlywood;
+       }
+       header ul{
+           list-style-type: none;
+           background-color: green;
+           padding: 10px;
+       }
+       header ul li{
+           font-size: 30px;
+           display: inline;
+           margin-left: 80px;
+       }
+       header ul li a{
+           color: white;
+       }
+       a{
+           color: white;
+           text-decoration: none;
+       }
+       a:hover{
+           text-decoration: none;
+           color: white;
+       }
+       form{
+           background-color: green;
+           padding: 40px;
+           border: 5px solid red;
+           margin-top: 50px;
+           margin-bottom: 100px;
+       }
+       td{
+           padding: 10px;
+       }
+       footer{
+           background-color: green;
+           color: white;
+           text-align: center;
+           padding: 10px;
+           position: fixed;
+           bottom: 0;
+           left: 0;
+           width: 100%;
+       }
+
+   </style>
+</head>
+<body>
+    <header>
+      <ul>
+          <li><a href="{% url 'home' %}"> Home </a></li>
+          {% if user.is_authenticated %}
+             <li><a href="{% url 'logout' %}"> Logout </a></li>
+          {% else %}
+             <li><a href="{% url 'register' %}"> Register </a></li>
+             <li><a href="{% url 'login' %}"> Login </a></li>
+          {% endif %}
+      </ul>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible">
+                     <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ message }}
+                  </div>
+                {% endfor %}
+
+                {% block body %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Copy rights reserved &copy; VLR Trainings
+    </footer>
+</body>
+</html>
